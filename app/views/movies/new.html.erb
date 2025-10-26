@@ -1,0 +1,36 @@
+<% if user_signed_in? %>
+  <h1>Novo Filme</h1>
+
+  <%= form_with model: @movie, local: true do |f| %>
+    <p>
+      <%= f.label :title, "Título" %><br>
+      <%= f.text_field :title, required: true %>
+    </p>
+   <p>
+   <p>
+      <%= f.label :category, "Categoria" %><br>
+      <%= f.select :category, ["Ação", "Drama", "Comédia", "Terror", "Ficção", "Romance"], prompt: "Selecione a categoria", required: true %>
+   </p>
+    <p>
+      <%= f.label :description, "Descrição" %><br>
+      <%= f.text_area :description, required: true %>
+    </p>
+    <p>
+      <%= f.label :year, "Ano" %><br>
+      <%= f.number_field :year, required: true %>
+    </p>
+    <p>
+      <%= f.label :duration, "Duração" %><br>
+      <%= f.text_field :duration, required: true %>
+    </p>
+    <p>
+      <%= f.label :director, "Diretor" %><br>
+      <%= f.text_field :director, required: true %>
+    </p>
+    <p><%= f.submit "Criar Filme" %></p>
+  <% end %>
+
+<% else %>
+  <p>Você precisa estar logado para criar um filme.</p>
+<% end %>
+

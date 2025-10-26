@@ -1,0 +1,61 @@
+<hr>
+
+<h1><%= @movie.title %></h1>
+
+<div class="movie-details">
+  <div class="show-card">
+    <h3><%= @movie.title %></h3>
+
+    <p><strong>Categorias:</strong> <%= @movie.category %></p>
+    <p><strong>Diretor:</strong> <%= @movie.director %></p>
+    <p><strong>Ano:</strong> <%= @movie.year %></p>
+    <p><strong>Duração:</strong> <%= @movie.duration %></p>
+    <p><strong>Descrição:</strong> <%= @movie.description %></p>
+  </div>
+
+  <div class="movie-actions">
+    <%= link_to "Editar", edit_movie_path(@movie), class: "btn-edit" %>
+    <%= link_to "Voltar", movies_path, class: "btn-back" %>
+
+    <%= form_with model: @movie, method: :delete, data: { turbo_confirm: "Tem certeza que deseja remover este filme?" }, class: "d-inline" do |f| %>
+      <%= f.submit "Remover", class: "btn-remove" %>
+    <% end %>
+  </div>
+</div>
+
+<hr>
+
+<h2 class="comments-title">Comentários</h2>
+
+<div class="comments-section">
+  <% if @comments.any? %>
+    <% @comments.each do |comment| %>
+      <div class="comment">
+        <p class="comment-author"><strong><%= comment.user.name %>:</strong></p>
+        <p class="comment-content"><%= comment.content %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="no-comments">Nenhum comentário ainda.</p>
+  <% end %>
+</div>
+
+<hr>
+
+<h3 class="comments-title">Adicionar comentário</h3>
+
+<% if user_signed_in? %>
+   <%= form_with model: [@movie, @comment], url: create_comment_movie_path(@movie), local: true, class: "comment-form" do |f| %>
+  <p>
+    <%= f.label :content, "Comentário" %><br>
+    <%= f.text_area :content, required: true, rows: 3 %>
+  </p>
+  <p>
+    <%= f.submit "Comentar", class: "btn-comment" %>
+  </p>
+<% end %>
+<% else %>
+  <p>
+    Você precisa <%= link_to "entrar na sua conta", new_user_session_path %> para comentar.
+  </p>
+<% end %>

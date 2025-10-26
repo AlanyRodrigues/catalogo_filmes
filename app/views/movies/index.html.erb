@@ -1,0 +1,46 @@
+<hr>
+
+<h1>Catálogo de Filmes</h1>
+
+<!-- Barra de busca e filtro -->
+<%= form_with url: movies_path, method: :get, local: true, html: { class: "filter-bar" } do |form| %>
+  <div class="filter-item">
+    <%= form.label :query, "Buscar por título, diretor ou ano:" %><br>
+    <%= form.text_field :query, value: params[:query], placeholder: "Ex: Titanic, Nolan, 2010" %>
+  </div>
+
+  <div class="filter-item">
+    <%= form.label :category, "Filtrar por categoria:" %><br>
+    <%= form.select :category, options_for_select(["Todas"] + Movie.distinct.pluck(:category), selected: params[:category]) %>
+  </div>
+
+  <div class="filter-buttons">
+    <%= form.submit "Filtrar", class: "btn-filter" %>
+    <%= link_to "Limpar", movies_path, class: "btn-clear" %>
+  </div>
+<% end %>
+
+<%= link_to "Adicionar novo filme", new_movie_path, class: "btn-add-movie", style: "margin-bottom: 20px; font-size: 16px;" if user_signed_in? %>
+
+<div class="movies-container">
+  <% @movies.each do |movie| %>
+    <div class="movie-card">
+      
+      <!-- Informações do filme -->
+      <div class="card-infos">
+        <h3><%= movie.title %></h3>
+        <p><strong>Diretor:</strong> <%= movie.director %></p>
+        <p><strong>Ano:</strong> <%= movie.year %></p>
+        <p><strong>Categorias:</strong> <%= movie.category %></p>
+      </div>
+
+      <!-- Botão Ver Mais -->
+        <div class="btn-container">
+          <%= link_to "Ver Mais", movie_path(movie), class: "btn btn-info" %>
+        </div>
+
+     </div>
+  <% end %>
+</div>
+
+<%= paginate @movies %>

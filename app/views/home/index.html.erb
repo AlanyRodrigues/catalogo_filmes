@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+  <p>Explore filmes aqui!</p>
+  <%= link_to "Ver Filmes", movies_path %>
+<% else %>
+  <p>Você não está logado. <%= link_to "Entrar", new_user_session_path %> ou <%= link_to "Cadastrar", new_user_registration_path %></p>
+<% end %>
