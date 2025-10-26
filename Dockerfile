@@ -1,28 +1,28 @@
 # 1. Base image
 FROM ruby:3.2.2
 
-# 2. Instala dependências do sistema
+# 2. Dependências do sistema
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client yarn
 
-# 3. Define diretório de trabalho
+# 3. Diretório de trabalho
 WORKDIR /app
 
-# 4. Copia arquivos do projeto
+# 4. Copia Gemfile e instala gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
+# 5. Copia o restante do projeto
 COPY . .
 
-# 5. Define variáveis de ambiente para produção
+# 6. Variáveis de ambiente
 ENV RAILS_ENV=production
 ENV RAILS_MASTER_KEY=564945cdd3f39d30567df144e82ecfdc
-ENV DATABASE_URL=postgresql://catalogo_filmes_prod_user:2FCBBA22xPzPTAdIVqbot4eH3kjIDH23@dpg-d3v4b5n5r7bs73fv1m8g-a/catalogo_filmes_prod
 
-# 6. Pré-compila os assets
+# 7. Pré-compila assets
 RUN bundle exec rails assets:precompile
 
-# 7. Exponha porta
+# 8. Porta do container
 EXPOSE 3000
 
-# 8. Entrypoint padrão (inicia o servidor Rails)
+# 9. Start do Rails
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
