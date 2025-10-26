@@ -1,24 +1,19 @@
-# README
+# Catálogo de Filmes
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Projeto de catálogo de filmes desenvolvido em Ruby on Rails, com funcionalidades de cadastro, 
+edição, remoção e comentários de filmes.
 
-Things you may want to cover:
+## Tecnologias utilizadas
+- Ruby 3.2.2
+- Rails 7.2
+- PostgreSQL
 
-* Ruby version
+## Como rodar o projeto localmente
 
-* System dependencies
+1. Clone o repositório:
+```bash
+git clone https://github.com/SEU_USUARIO/catalogo_filmes.git
+cd catalogo_filmes
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# catalogo_filmes
+fbb6881207b296610e02a82e46829f9f8b456e77
