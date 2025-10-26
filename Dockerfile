@@ -11,9 +11,6 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-COPY package.json yarn.lock ./
-RUN yarn install --check-files
-
 COPY . .
 
 # 5. Define variáveis de ambiente para produção
